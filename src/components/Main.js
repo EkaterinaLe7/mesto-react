@@ -5,6 +5,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
   const [ userName, setUserName ] = React.useState();
   const [ userDescription , setUserDescription ] = React.useState();
   const [ userAvatar, setUserAvatar ] = React.useState();
+  const [ cards, setCards ] = React.useState([]);
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -12,6 +13,17 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
         setUserName(res.name);
         setUserDescription(res.about);
         setUserAvatar(res.avatar)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then(res => {
+        console.log(res);
+        setCards(res);
       })
       .catch((err) => {
         console.log(err);
@@ -34,7 +46,24 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
             <button className="profile__add-button" type="button" onClick={ onAddPlace }/>
           </section>
           <section className="elements" aria-label="Фотографии">
-            <ul className="elements__photo-items"></ul>
+            <ul className="elements__photo-items">
+              {cards.map((card) => (
+                <li className="photo-item" key={card._id}>
+                <button className="photo-item__delete-btn" type="button" />
+                <img className="photo-item__img"
+                src={card.link}
+                alt={card.name} />
+                <div className="photo-item__description">
+                  <h2 className="photo-item__title">{card.name}</h2>
+                  <div className="photo-item__counter-wrapper">
+                    <button className="photo-item__like-btn" type="button" />
+                    <span className="photo-item__like-counter">{card.likes.length}</span>
+                  </div>
+                </div>
+              </li>
+              ))}
+              
+            </ul>
           </section>
         </main>
     )
