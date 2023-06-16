@@ -6,19 +6,41 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
-function handleEditAvatarClick() {
-  document.querySelector('.popup_type_avatar-edit').classList.add('popup_opened');
-}
+// function handleEditAvatarClick() {
+//   document.querySelector('.popup_type_avatar-edit').classList.add('popup_opened');
+// }
 
-function handleEditProfileClick() {
-  document.querySelector('.popup_type_profile-edit').classList.add('popup_opened');
-}
+// function handleEditProfileClick() {
+//   document.querySelector('.popup_type_profile-edit').classList.add('popup_opened');
+// }
 
-function handleAddPlaceClick() {
-  document.querySelector('.popup_type_image-add').classList.add('popup_opened');
-}
+// function handleAddPlaceClick() {
+//   document.querySelector('.popup_type_image-add').classList.add('popup_opened');
+// }
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
+
   return (
     <div className="page">
       <div className="page__container">
@@ -34,6 +56,8 @@ function App() {
           title="Редактировать профиль"
           formName="infoform"
           buttonText="Сохранить"
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
           children={
             <>
               <label className="popup__label">
@@ -70,6 +94,8 @@ function App() {
           title="Новое место"
           formName="photocard"
           buttonText="Создать"
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
           children={
             <>
               <label className="popup__label">
@@ -104,6 +130,8 @@ function App() {
           title="Обновить аватар"
           formName="avatarpopup"
           buttonText="Сохранить"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
           children={
             <>
             <label className="popup__label">
@@ -125,6 +153,7 @@ function App() {
           title="Вы уверены?"
           formName="comfirmpopup"
           buttonText="Да"
+          onClose={closeAllPopups}
         />
 
         {/* <div className="popup popup_type_profile-edit">
