@@ -6,6 +6,8 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 
+// import api from '../utils/api'
+
 // function handleEditAvatarClick() {
 //   document.querySelector('.popup_type_avatar-edit').classList.add('popup_opened');
 // }
