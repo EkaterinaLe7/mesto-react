@@ -2,7 +2,7 @@ import React from 'react';
 
 function Card({ name, link, likes, onCardClick }) {
   function handleClick() {
-    onCardClick({name, link})
+    onCardClick({ name, link })
   }
     return (
         <li className="photo-item" onClick={ handleClick }>

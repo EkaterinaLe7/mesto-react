@@ -12,19 +12,19 @@ function PopupWithForm({
     return (
         <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
           <div className="popup__container">
-            <h2 className="popup__title">{title}</h2>
+            <h2 className="popup__title">{ title }</h2>
             <form
               className="popup__form"
               method="post"
-              name={formName}
+              name={ formName }
               noValidate=""
             >
-              {children}
+              { children }
               <button className="popup__button" type="submit">
-                {buttonText}
+                { buttonText }
               </button>
             </form>
-            <button className="popup__button-close" type="button" onClick={onClose}/>
+            <button className="popup__button-close" type="button" onClick={ onClose }/>
           </div>
         </div>
     )
