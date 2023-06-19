@@ -5,6 +5,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 // import api from '../utils/api'
 
@@ -24,6 +25,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  // const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -37,10 +40,17 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  function handleCardClick(data) {
+    setSelectedCard(data);
+    // setIsImagePopupOpen(!isImagePopupOpen);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    // setIsImagePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
@@ -51,6 +61,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
         <PopupWithForm
@@ -157,6 +168,11 @@ function App() {
           buttonText="Да"
           onClose={closeAllPopups}
         />
+        <ImagePopup 
+          onClose={closeAllPopups}
+          // isOpen={isImagePopupOpen}
+          selectedCard={selectedCard}
+        />
 
         {/* <div className="popup popup_type_profile-edit">
           <div className="popup__container">
@@ -240,7 +256,7 @@ function App() {
             <button className="popup__button-close" type="button" />
           </div>
         </div> */}
-        <div className="popup popup_type_card-opened">
+        {/* <div className="popup popup_type_card-opened">
           <div className="popup__card-container">
             <figure className="popup__figure">
               <img className="popup__image" src="#" alt="#" />
@@ -248,7 +264,7 @@ function App() {
             </figure>
             <button className="popup__button-close" />
           </div>
-        </div>
+        </div> */}
         {/* <div className="popup popup_type_avatar-edit">
           <div className="popup__container">
             <h2 className="popup__title">Обновить аватар</h2>
