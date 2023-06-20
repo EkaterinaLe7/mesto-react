@@ -55,34 +55,32 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
         >
-          <>
-            <label className="popup__label">
-              <input
-                className="popup__input popup__input_content_name"
-                type="text"
-                id="name-input"
-                name="username"
-                placeholder="Имя"
-                required=""
-                minLength={2}
-                maxLength={40}
-              />
-              <span className="popup__error name-input-error" />
-            </label>
-            <label className="popup__label">
-              <input
-                className="popup__input popup__input_content_occupation"
-                type="text"
-                id="occupation-input"
-                name="useroccupation"
-                placeholder="О себе"
-                required=""
-                minLength={2}
-                maxLength={200}
-              />
-              <span className="popup__error occupation-input-error" />
-            </label>
-          </>
+          <label className="popup__label">
+            <input
+              className="popup__input popup__input_content_name"
+              type="text"
+              id="name-input"
+              name="username"
+              placeholder="Имя"
+              required=""
+              minLength={2}
+              maxLength={40}
+            />
+            <span className="popup__error name-input-error" />
+          </label>
+          <label className="popup__label">
+            <input
+              className="popup__input popup__input_content_occupation"
+              type="text"
+              id="occupation-input"
+              name="useroccupation"
+              placeholder="О себе"
+              required=""
+              minLength={2}
+              maxLength={200}
+            />
+            <span className="popup__error occupation-input-error" />
+          </label>
         </PopupWithForm>
         <PopupWithForm
           name="image-add"
@@ -92,32 +90,30 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
         >
-          <>
-            <label className="popup__label">
-              <input
-                className="popup__input popup__input_content_title"
-                type="text"
-                id="title-input"
-                name="photoname"
-                placeholder="Название"
-                required=""
-                minLength={2}
-                maxLength={30}
-              />
-              <span className="popup__error title-input-error" />
-            </label>
-            <label className="popup__label">
-              <input
-                className="popup__input popup__input_content_image"
-                type="url"
-                id="link-input"
-                name="imagelink"
-                placeholder="Ссылка на картинку"
-                required=""
-              />
-              <span className="popup__error link-input-error" />
-            </label>
-          </>
+          <label className="popup__label">
+            <input
+              className="popup__input popup__input_content_title"
+              type="text"
+              id="title-input"
+              name="photoname"
+              placeholder="Название"
+              required=""
+              minLength={2}
+              maxLength={30}
+            />
+            <span className="popup__error title-input-error" />
+          </label>
+          <label className="popup__label">
+            <input
+              className="popup__input popup__input_content_image"
+              type="url"
+              id="link-input"
+              name="imagelink"
+              placeholder="Ссылка на картинку"
+              required=""
+            />
+            <span className="popup__error link-input-error" />
+          </label>
         </PopupWithForm>
         <PopupWithForm
           name="avatar-edit"
@@ -127,19 +123,17 @@ function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
         >
-          <>
-            <label className="popup__label">
-              <input
-                className="popup__input popup__input_content_image"
-                type="url"
-                id="avatar-input"
-                name="avatarlink"
-                placeholder="Ссылка на изображение"
-                required=""
-              />
-              <span className="popup__error avatar-input-error" />
-            </label>
-          </>
+          <label className="popup__label">
+            <input
+              className="popup__input popup__input_content_image"
+              type="url"
+              id="avatar-input"
+              name="avatarlink"
+              placeholder="Ссылка на изображение"
+              required=""
+            />
+            <span className="popup__error avatar-input-error" />
+          </label>
         </PopupWithForm>
         <PopupWithForm
           name="confirm-delete"
