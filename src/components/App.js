@@ -74,6 +74,17 @@ function handleCardDelete({id}) {
   })
 }
 
+function handleUpdateUser(data) {
+  api.setUserInfo(data)
+  .then((res) => {
+    setCurrentUser(res);
+    closeAllPopups()
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -112,7 +123,7 @@ function handleCardDelete({id}) {
             onCardDelete={handleCardDelete}
           />
           <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <PopupWithForm
             name="image-add"
             title="Новое место"
