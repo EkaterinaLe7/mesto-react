@@ -24,13 +24,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-  
+
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
       name,
       about: description,
     });
-  } 
+  }
 
   return (
     <>
@@ -49,7 +49,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             type="text"
             id="name-input"
             name="username"
-            value={name || ''}
+            value={name || ""}
             placeholder="Имя"
             required=""
             minLength={2}
@@ -64,7 +64,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             type="text"
             id="occupation-input"
             name="useroccupation"
-            value={description || ''}
+            value={description || ""}
             placeholder="О себе"
             required=""
             minLength={2}

@@ -3,34 +3,16 @@ import Card from "./Card";
 // import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
-  // const [userName, setUserName] = React.useState("");
-  // const [userDescription, setUserDescription] = React.useState("");
-  // const [userAvatar, setUserAvatar] = React.useState("");
-  // const [cards, setCards] = React.useState([]);
-
+function Main({
+  cards,
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
   const currentUser = useContext(CurrentUserContext);
-
-  // React.useEffect(() => {
-  //   // api
-  //   //   .getUserInfo()
-  //   //   .then((res) => {
-  //   //     setUserName(res.name);
-  //   //     setUserDescription(res.about);
-  //   //     setUserAvatar(res.avatar);
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err);
-  //   //   });
-  //   api
-  //     .getInitialCards()
-  //     .then((res) => {
-  //       setCards(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   return (
     <main className="content page__container-centered">
