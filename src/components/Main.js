@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "./Card";
 // import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -9,7 +9,7 @@ function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onC
   // const [userAvatar, setUserAvatar] = React.useState("");
   // const [cards, setCards] = React.useState([]);
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   // React.useEffect(() => {
   //   // api

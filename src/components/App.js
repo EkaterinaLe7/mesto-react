@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+    useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+    useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  // const [isSubmited, setisSubmited] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // api
     //   .getUserInfo()
     //   .then((res) => {
@@ -39,7 +42,7 @@ function App() {
       });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getUserInfo()
       .then((res) => {
@@ -78,6 +81,28 @@ function handleUpdateUser(data) {
   api.setUserInfo(data)
   .then((res) => {
     setCurrentUser(res);
+    closeAllPopups()
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+function handleUpdateAvatar(data) {
+  api.editAvatar(data)
+  .then((res) => {
+    setCurrentUser(res);
+    closeAllPopups()
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+function handleAddPlaceSubmit(data) {
+  api.createCard(data)
+  .then((newCard) => {
+    setCards([newCard, ...cards]);
     closeAllPopups()
   })
   .catch((err) => {
@@ -124,7 +149,9 @@ function handleUpdateUser(data) {
           />
           <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <PopupWithForm
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleAddPlaceSubmit} />
+          {/* <PopupWithForm
             name="image-add"
             title="Новое место"
             formName="photocard"
@@ -156,8 +183,8 @@ function handleUpdateUser(data) {
               />
               <span className="popup__error link-input-error" />
             </label>
-          </PopupWithForm>
-          <PopupWithForm
+          </PopupWithForm> */}
+          {/* <PopupWithForm
             name="avatar-edit"
             title="Обновить аватар"
             formName="avatarpopup"
@@ -176,7 +203,7 @@ function handleUpdateUser(data) {
               />
               <span className="popup__error avatar-input-error" />
             </label>
-          </PopupWithForm>
+          </PopupWithForm> */}
           <PopupWithForm
             name="confirm-delete"
             title="Вы уверены?"
