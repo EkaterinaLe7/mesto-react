@@ -1,7 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({isOpen, onClose}) {
+function AddPlacePopup({isOpen, onClose, onAddPlace}) {
+    const nameRef = useRef();
+    const linkRef = useRef();
+
+    useEffect(() => {
+        nameRef.current.value = '';
+        linkRef.current.value = '';
+      }, [isOpen]);
+    
+      function handleSubmit(e) {
+        e.preventDefault();
+    
+        onAddPlace({
+          name: nameRef.current.value,
+          link: linkRef.current.value
+        });
+       
+      }
+
     return(
         <>
             <PopupWithForm
@@ -11,12 +29,14 @@ function AddPlacePopup({isOpen, onClose}) {
             buttonText="Создать"
             isOpen={isOpen}
             onClose={onClose}
+            onSubmit={handleSubmit}
           >
             <label className="popup__label">
               <input
                 className="popup__input popup__input_content_title"
                 type="text"
                 id="title-input"
+                ref={nameRef}
                 name="photoname"
                 placeholder="Название"
                 required=""
@@ -30,6 +50,7 @@ function AddPlacePopup({isOpen, onClose}) {
                 className="popup__input popup__input_content_image"
                 type="url"
                 id="link-input"
+                ref={linkRef}
                 name="imagelink"
                 placeholder="Ссылка на картинку"
                 required=""

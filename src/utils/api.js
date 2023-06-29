@@ -23,10 +23,12 @@ class Api {
       return fetch(`${this._baseUrl}/cards`, {
         method: 'POST',
         headers: this._headers,
-        body: JSON.stringify({
-          name: data.photoname,
-          link: data.imagelink})
+        body: JSON.stringify(data)
       })
+    //   body: JSON.stringify({
+    //     name: data.photoname,
+    //     link: data.imagelink})
+    // })
       .then(this._getResponse)
     }
   
