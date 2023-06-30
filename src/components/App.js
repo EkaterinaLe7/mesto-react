@@ -19,28 +19,56 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoadiing] = useState(false);
 
-
   useEffect(() => {
+    // api
+    //   .getInitialCards()
+    //   .then((res) => {
+    //     setCards(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    // api
+    //   .getUserInfo()
+    //   .then((res) => {
+    //     setCurrentUser(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
+      .getAppInfo()
+      .then(([cardsArray, userData]) => {
+        setCards(cardsArray);
+        setCurrentUser(userData);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // api
+  //   .getAppInfo()
+  //   .then(([cardsArray, userData]) => {
+  //     setCards(cardsArray);
+  //     setCurrentUser(userData);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
+  // useEffect(() => {
+  //   api
+  //     .getUserInfo()
+  //     .then((res) => {
+  //       setCurrentUser(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   function handleCardLike({ likes, id }) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -104,7 +132,7 @@ function App() {
 
   function handleAddPlaceSubmit(data) {
     setIsLoadiing(true);
-    
+
     api
       .createCard(data)
       .then((newCard) => {
@@ -113,7 +141,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsLoadiing(false);
       });
   }
