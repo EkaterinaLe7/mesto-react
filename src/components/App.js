@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -22,55 +21,17 @@ function App() {
   const [selectedDeletCard, setSelectedDeletCard] = useState(null);
 
   useEffect(() => {
-    // api
-    //   .getInitialCards()
-    //   .then((res) => {
-    //     setCards(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // api
-    //   .getUserInfo()
-    //   .then((res) => {
-    //     setCurrentUser(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     api
       .getAppInfo()
       .then(([cardsArray, userData]) => {
         setCards(cardsArray);
         setCurrentUser(userData);
+        console.log(cardsArray)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  // api
-  //   .getAppInfo()
-  //   .then(([cardsArray, userData]) => {
-  //     setCards(cardsArray);
-  //     setCurrentUser(userData);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // useEffect(() => {
-  //   api
-  //     .getUserInfo()
-  //     .then((res) => {
-  //       setCurrentUser(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   function handleCardLike({ likes, id }) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -156,7 +117,7 @@ function App() {
   }
 
   function handleConfirmationDelete(card) {
-    setSelectedDeletCard(card)
+    setSelectedDeletCard(card);
   }
 
   function handleEditAvatarClick() {
@@ -196,7 +157,6 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onConfirmationDelete={handleConfirmationDelete}
-            // onCardDelete={handleCardDelete}
           />
           <Footer />
           <EditProfilePopup
@@ -217,14 +177,12 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
             isLoading={isLoading}
           />
-          <ConfirmationDeletePopup card={selectedDeletCard} onClose={closeAllPopups} onCardDelete={handleCardDelete} isLoading={isLoading} />
-          {/* <PopupWithForm
-            name="confirm-delete"
-            title="Вы уверены?"
-            formName="comfirmpopup"
-            buttonText="Да"
+          <ConfirmationDeletePopup
+            card={selectedDeletCard}
             onClose={closeAllPopups}
-          /> */}
+            onCardDelete={handleCardDelete}
+            isLoading={isLoading}
+          />
           <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard} />
         </div>
       </div>

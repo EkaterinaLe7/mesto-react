@@ -9,8 +9,7 @@ function Card({
   owner,
   onCardClick,
   onCardLike,
-  onCardDelete,
-  onConfirmationDelete
+  onConfirmationDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -30,8 +29,7 @@ function Card({
   }
 
   function handleDeleteClick() {
-    // onCardDelete({ id });
-    onConfirmationDelete({id})
+    onConfirmationDelete({ id });
   }
 
   return (

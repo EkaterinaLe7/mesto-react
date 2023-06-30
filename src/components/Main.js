@@ -10,8 +10,7 @@ function Main({
   onEditAvatar,
   onCardClick,
   onCardLike,
-  onCardDelete,
-  onConfirmationDelete
+  onConfirmationDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -52,7 +51,6 @@ function Main({
               id={card._id}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
               onConfirmationDelete={onConfirmationDelete}
             />
           ))}
