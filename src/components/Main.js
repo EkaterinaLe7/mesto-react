@@ -11,6 +11,7 @@ function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  onConfirmationDelete
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -52,6 +53,7 @@ function Main({
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
+              onConfirmationDelete={onConfirmationDelete}
             />
           ))}
         </ul>

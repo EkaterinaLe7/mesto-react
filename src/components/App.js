@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmationDeletePopup from "./ConfirmationDeletePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -18,6 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoadiing] = useState(false);
+  const [selectedDeletCard, setSelectedDeletCard] = useState(null);
 
   useEffect(() => {
     // api
@@ -86,13 +88,19 @@ function App() {
   }
 
   function handleCardDelete({ id }) {
+    setIsLoadiing(true);
+
     api
       .deliteCard(id)
       .then(() => {
         setCards((cards) => cards.filter((c) => c._id !== id));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoadiing(false);
       });
   }
 
@@ -147,6 +155,10 @@ function App() {
       });
   }
 
+  function handleConfirmationDelete(card) {
+    setSelectedDeletCard(card)
+  }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -168,6 +180,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    setSelectedDeletCard(null);
   }
 
   return (
@@ -182,7 +195,8 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onConfirmationDelete={handleConfirmationDelete}
+            // onCardDelete={handleCardDelete}
           />
           <Footer />
           <EditProfilePopup
@@ -203,13 +217,14 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
             isLoading={isLoading}
           />
-          <PopupWithForm
+          <ConfirmationDeletePopup card={selectedDeletCard} onClose={closeAllPopups} onCardDelete={handleCardDelete} isLoading={isLoading} />
+          {/* <PopupWithForm
             name="confirm-delete"
             title="Вы уверены?"
             formName="comfirmpopup"
             buttonText="Да"
             onClose={closeAllPopups}
-          />
+          /> */}
           <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard} />
         </div>
       </div>

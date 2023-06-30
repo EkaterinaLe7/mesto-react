@@ -10,6 +10,7 @@ function Card({
   onCardClick,
   onCardLike,
   onCardDelete,
+  onConfirmationDelete
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -29,7 +30,8 @@ function Card({
   }
 
   function handleDeleteClick() {
-    onCardDelete({ id });
+    // onCardDelete({ id });
+    onConfirmationDelete({id})
   }
 
   return (
