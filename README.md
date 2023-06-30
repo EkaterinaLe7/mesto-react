@@ -8,4 +8,6 @@
 * JSX
 * Функциональные компоненты
 * CRA (Create React App)
-* хуки useState и useEffect
+* хуки useState и useEffect  
+* Глобальный стейт, созданный через контекст (React Context )  
+* Прямой доступ к DOM-элементам через хук useRef  
