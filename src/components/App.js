@@ -17,6 +17,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoadiing] = useState(false);
+
 
   useEffect(() => {
     api
@@ -67,6 +69,8 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    setIsLoadiing(true);
+
     api
       .setUserInfo(data)
       .then((res) => {
@@ -75,10 +79,15 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoadiing(false);
       });
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoadiing(true);
+
     api
       .editAvatar(data)
       .then((res) => {
@@ -87,10 +96,15 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoadiing(false);
       });
   }
 
   function handleAddPlaceSubmit(data) {
+    setIsLoadiing(true);
+    
     api
       .createCard(data)
       .then((newCard) => {
@@ -99,6 +113,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      }).finally(() => {
+        setIsLoadiing(false);
       });
   }
 
@@ -144,16 +160,19 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            isLoading={isLoading}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            isLoading={isLoading}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            isLoading={isLoading}
           />
           <PopupWithForm
             name="confirm-delete"

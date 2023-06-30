@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
   const nameRef = useRef();
   const linkRef = useRef();
 
@@ -29,6 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleSubmit}
+        isLoading={isLoading}
       >
         <label className="popup__label">
           <input
