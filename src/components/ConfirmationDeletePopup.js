@@ -9,19 +9,17 @@ function ConfirmationDeletePopup({ card, onClose, onCardDelete, isLoading }) {
   }
 
   return (
-    <>
-      <PopupWithForm
-        name="confirm-delete"
-        title="Вы уверены?"
-        formName="comfirmpopup"
-        buttonText="Да"
-        card={card}
-        onClose={onClose}
-        onSubmit={handleSubmit}
-        isOpen={card}
-        isLoading={isLoading}
-      />
-    </>
+    <PopupWithForm
+      name="confirm-delete"
+      title="Вы уверены?"
+      formName="comfirmpopup"
+      buttonText="Да"
+      card={card}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      isOpen={card}
+      isLoading={isLoading}
+    />
   );
 }
 

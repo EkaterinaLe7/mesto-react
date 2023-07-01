@@ -42,7 +42,6 @@ function PopupWithForm({
           className="popup__form"
           method="post"
           name={formName}
-          noValidate=""
           onSubmit={onSubmit}
         >
           {children}

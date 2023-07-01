@@ -33,49 +33,47 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   }
 
   return (
-    <>
-      <PopupWithForm
-        name="profile-edit"
-        title="Редактировать профиль"
-        formName="infoform"
-        buttonText="Сохранить"
-        isOpen={isOpen}
-        onClose={onClose}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-      >
-        <label className="popup__label">
-          <input
-            className="popup__input popup__input_content_name"
-            type="text"
-            id="name-input"
-            name="username"
-            value={name || ""}
-            placeholder="Имя"
-            required=""
-            minLength={2}
-            maxLength={40}
-            onChange={handleChangeName}
-          />
-          <span className="popup__error name-input-error" />
-        </label>
-        <label className="popup__label">
-          <input
-            className="popup__input popup__input_content_occupation"
-            type="text"
-            id="occupation-input"
-            name="useroccupation"
-            value={description || ""}
-            placeholder="О себе"
-            required=""
-            minLength={2}
-            maxLength={200}
-            onChange={handleChangeDescription}
-          />
-          <span className="popup__error occupation-input-error" />
-        </label>
-      </PopupWithForm>
-    </>
+    <PopupWithForm
+      name="profile-edit"
+      title="Редактировать профиль"
+      formName="infoform"
+      buttonText="Сохранить"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+    >
+      <label className="popup__label">
+        <input
+          className="popup__input popup__input_content_name"
+          type="text"
+          id="name-input"
+          name="username"
+          value={name || ""}
+          placeholder="Имя"
+          required=""
+          minLength={2}
+          maxLength={40}
+          onChange={handleChangeName}
+        />
+        <span className="popup__error name-input-error" />
+      </label>
+      <label className="popup__label">
+        <input
+          className="popup__input popup__input_content_occupation"
+          type="text"
+          id="occupation-input"
+          name="useroccupation"
+          value={description || ""}
+          placeholder="О себе"
+          required=""
+          minLength={2}
+          maxLength={200}
+          onChange={handleChangeDescription}
+        />
+        <span className="popup__error occupation-input-error" />
+      </label>
+    </PopupWithForm>
   );
 }
 

@@ -1,64 +1,72 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
-  const nameRef = useRef();
-  const linkRef = useRef();
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
 
   useEffect(() => {
-    nameRef.current.value = "";
-    linkRef.current.value = "";
+    setName("");
+    setLink("");
   }, [isOpen]);
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeLink(e) {
+    setLink(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onAddPlace({
-      name: nameRef.current.value,
-      link: linkRef.current.value,
+      name,
+      link,
     });
   }
 
   return (
-    <>
-      <PopupWithForm
-        name="image-add"
-        title="Новое место"
-        formName="photocard"
-        buttonText="Создать"
-        isOpen={isOpen}
-        onClose={onClose}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-      >
-        <label className="popup__label">
-          <input
-            className="popup__input popup__input_content_title"
-            type="text"
-            id="title-input"
-            ref={nameRef}
-            name="photoname"
-            placeholder="Название"
-            required=""
-            minLength={2}
-            maxLength={30}
-          />
-          <span className="popup__error title-input-error" />
-        </label>
-        <label className="popup__label">
-          <input
-            className="popup__input popup__input_content_image"
-            type="url"
-            id="link-input"
-            ref={linkRef}
-            name="imagelink"
-            placeholder="Ссылка на картинку"
-            required=""
-          />
-          <span className="popup__error link-input-error" />
-        </label>
-      </PopupWithForm>
-    </>
+    <PopupWithForm
+      name="image-add"
+      title="Новое место"
+      formName="photocard"
+      buttonText="Создать"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+    >
+      <label className="popup__label">
+        <input
+          className="popup__input popup__input_content_title"
+          type="text"
+          id="title-input"
+          value={name || ""}
+          name="photoname"
+          placeholder="Название"
+          required=""
+          minLength={2}
+          maxLength={30}
+          onChange={handleChangeName}
+        />
+        <span className="popup__error title-input-error" />
+      </label>
+      <label className="popup__label">
+        <input
+          className="popup__input popup__input_content_image"
+          type="url"
+          id="link-input"
+          value={link || ""}
+          name="imagelink"
+          placeholder="Ссылка на картинку"
+          required=""
+          onChange={handleChangeLink}
+        />
+        <span className="popup__error link-input-error" />
+      </label>
+    </PopupWithForm>
   );
 }
 
