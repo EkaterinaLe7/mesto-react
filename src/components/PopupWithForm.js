@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import { usePopupClose } from '../hooks/usePopupClose';
+import { usePopupClose } from "../hooks/usePopupClose";
 
 function PopupWithForm({
   name,
@@ -13,37 +13,10 @@ function PopupWithForm({
 }) {
   const app = useContext(AppContext);
 
-  // useEffect(() => {
-    // if (!isOpen) return;
-
-    // function closePopupsByEsc(e) {
-    //   if (e.key === "Escape") {
-    //     app.closeAllPopups();
-    //   }
-    // }
-
-    // document.addEventListener("keydown", closePopupsByEsc);
-
-    // return () => document.removeEventListener("keydown", closePopupsByEsc);
-
-    
-
-
-  // }, [isOpen, app, app.closeAllPopups]);
-
-  // function closePopupByOverlay(evt) {
-  //   if (evt.target === evt.currentTarget) {
-  //     app.closeAllPopups();
-  //   }
-  // }
-
-  usePopupClose(isOpen, app.closeAllPopups)
+  usePopupClose(isOpen, app.closeAllPopups);
 
   return (
-    <div
-      className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}
-      // onClick={closePopupByOverlay}
-    >
+    <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <form
