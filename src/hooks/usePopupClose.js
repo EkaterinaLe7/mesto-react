@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-// кастомные хуки всегда должны начинаться с глагола `use`, чтобы реакт понял, что это хук. Он следит за их вызовами
+
 export function usePopupClose(isOpen, closePopup) {
   useEffect(() => {
     if (!isOpen) return; // останавливаем действие эффекта, если попап закрыт
@@ -25,7 +25,5 @@ export function usePopupClose(isOpen, closePopup) {
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleOverlay);
     };
-    // обязательно следим за `isOpen`, чтобы срабатывало только при открытии, а не при любой перерисовке компонента
   }, [isOpen, closePopup]);
 }
-
