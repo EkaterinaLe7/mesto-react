@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
+import { usePopupClose } from '../hooks/usePopupClose';
 
 function PopupWithForm({
   name,
@@ -7,34 +9,40 @@ function PopupWithForm({
   children,
   buttonText,
   isOpen,
-  onClose,
   onSubmit,
-  isLoading,
 }) {
-  useEffect(() => {
-    if (!isOpen) return;
+  const app = useContext(AppContext);
 
-    function closePopupsByEsc(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    }
+  // useEffect(() => {
+    // if (!isOpen) return;
 
-    document.addEventListener("keydown", closePopupsByEsc);
+    // function closePopupsByEsc(e) {
+    //   if (e.key === "Escape") {
+    //     app.closeAllPopups();
+    //   }
+    // }
 
-    return () => document.removeEventListener("keydown", closePopupsByEsc);
-  }, [isOpen, onClose]);
+    // document.addEventListener("keydown", closePopupsByEsc);
 
-  function closePopupByOverlay(evt) {
-    if (evt.target === evt.currentTarget) {
-      onClose();
-    }
-  }
+    // return () => document.removeEventListener("keydown", closePopupsByEsc);
+
+    
+
+
+  // }, [isOpen, app, app.closeAllPopups]);
+
+  // function closePopupByOverlay(evt) {
+  //   if (evt.target === evt.currentTarget) {
+  //     app.closeAllPopups();
+  //   }
+  // }
+
+  usePopupClose(isOpen, app.closeAllPopups)
 
   return (
     <div
       className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}
-      onClick={closePopupByOverlay}
+      // onClick={closePopupByOverlay}
     >
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
@@ -46,13 +54,13 @@ function PopupWithForm({
         >
           {children}
           <button className="popup__button" type="submit">
-            {`${isLoading ? "Сохранение..." : buttonText}`}
+            {`${app.isLoading ? "Сохранение..." : buttonText}`}
           </button>
         </form>
         <button
           className="popup__button-close"
           type="button"
-          onClick={onClose}
+          onClick={app.closeAllPopups}
         />
       </div>
     </div>

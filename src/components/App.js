@@ -9,6 +9,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ConfirmationDeletePopup from "./ConfirmationDeletePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { AppContext } from "../contexts/AppContext";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -132,48 +133,42 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <div className="page__container">
-          <Header />
-          <Main
-            cards={cards}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onConfirmationDelete={handleConfirmationDelete}
-          />
-          <Footer />
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-            isLoading={isLoading}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-            isLoading={isLoading}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
-            isLoading={isLoading}
-          />
-          <ConfirmationDeletePopup
-            card={selectedDeletCard}
-            onClose={closeAllPopups}
-            onCardDelete={handleCardDelete}
-            isLoading={isLoading}
-          />
-          <ImagePopup onClose={closeAllPopups} selectedCard={selectedCard} />
+    <AppContext.Provider value={{ isLoading, closeAllPopups }}>
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="page">
+          <div className="page__container">
+            <Header />
+            <Main
+              cards={cards}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onConfirmationDelete={handleConfirmationDelete}
+            />
+            <Footer />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onUpdateUser={handleUpdateUser}
+            />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onAddPlace={handleAddPlaceSubmit}
+            />
+            <ConfirmationDeletePopup
+              card={selectedDeletCard}
+              onCardDelete={handleCardDelete}
+            />
+            <ImagePopup selectedCard={selectedCard} />
+          </div>
         </div>
-      </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </AppContext.Provider>
   );
 }
 

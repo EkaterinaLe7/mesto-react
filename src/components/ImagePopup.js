@@ -1,32 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
+import { usePopupClose } from '../hooks/usePopupClose';
 
-function ImagePopup({ selectedCard, onClose }) {
-  useEffect(() => {
-    if (!selectedCard) return;
+function ImagePopup({ selectedCard }) {
+  const app = useContext(AppContext);
 
-    function closePopupsByEsc(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    }
+  // useEffect(() => {
+    // if (!selectedCard) return;
 
-    document.addEventListener("keydown", closePopupsByEsc);
+    // function closePopupsByEsc(e) {
+    //   if (e.key === "Escape") {
+    //     app.closeAllPopups();
+    //   }
+    // }
 
-    return () => document.removeEventListener("keydown", closePopupsByEsc);
-  }, [selectedCard, onClose]);
+    // document.addEventListener("keydown", closePopupsByEsc);
 
-  function closePopupByOverlay(evt) {
-    if (evt.target === evt.currentTarget) {
-      onClose();
-    }
-  }
+    // return () => document.removeEventListener("keydown", closePopupsByEsc);
+
+   
+
+  // }, [selectedCard, app, app.closeAllPopups]);
+
+  // function closePopupByOverlay(evt) {
+  //   if (evt.target === evt.currentTarget) {
+  //     app.closeAllPopups();
+  //   }
+  // }
+
+  usePopupClose(selectedCard?.link, app.closeAllPopups)
 
   return (
     <div
       className={`popup popup_type_card-opened ${
         selectedCard && "popup_opened"
       }`}
-      onClick={closePopupByOverlay}
+      // onClick={closePopupByOverlay}
     >
       <div className="popup__card-container">
         <figure className="popup__figure">
@@ -39,7 +48,7 @@ function ImagePopup({ selectedCard, onClose }) {
             {selectedCard && selectedCard.name}
           </figcaption>
         </figure>
-        <button className="popup__button-close" onClick={onClose} />
+        <button className="popup__button-close" onClick={app.closeAllPopups} />
       </div>
     </div>
   );
