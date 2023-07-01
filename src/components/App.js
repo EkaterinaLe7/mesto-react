@@ -44,64 +44,108 @@ function App() {
       .catch(console.error);
   }
 
-  function handleCardDelete({ id }) {
-    setIsLoadiing(true);
 
-    api
-      .deliteCard(id)
-      .then(() => {
-        setCards((cards) => cards.filter((c) => c._id !== id));
-        closeAllPopups();
-      })
+  function handleSubmit(request) {
+    setIsLoadiing(true);
+    request()
+      .then(closeAllPopups)
       .catch(console.error)
-      .finally(() => {
-        setIsLoadiing(false);
+      .finally(() => setIsLoadiing(false));
+  }
+
+
+  function handleCardDelete({ id }) {
+
+    function makeRequest() {
+
+      return api.deliteCard(id).then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== id));
       });
+    }
+
+    handleSubmit(makeRequest);
+
+    // setIsLoadiing(true);
+
+    // api
+    //   .deliteCard(id)
+    //   .then(() => {
+    //     setCards((cards) => cards.filter((c) => c._id !== id));
+    //     closeAllPopups();
+    //   })
+    //   .catch(console.error)
+    //   .finally(() => {
+    //     setIsLoadiing(false);
+    //   });
   }
 
   function handleUpdateUser(data) {
-    setIsLoadiing(true);
+    function makeRequest() {
 
-    api
-      .setUserInfo(data)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoadiing(false);
-      });
+      return api.setUserInfo(data).then(setCurrentUser);
+    }
+
+    handleSubmit(makeRequest);
+
+    // setIsLoadiing(true);
+
+    // api
+    //   .setUserInfo(data)
+    //   .then((res) => {
+    //     setCurrentUser(res);
+    //     closeAllPopups();
+    //   })
+    //   .catch(console.error)
+    //   .finally(() => {
+    //     setIsLoadiing(false);
+    //   });
   }
 
   function handleUpdateAvatar(data) {
-    setIsLoadiing(true);
+    function makeRequest() {
 
-    api
-      .editAvatar(data)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoadiing(false);
-      });
+      return api.editAvatar(data).then(setCurrentUser);
+    }
+
+    handleSubmit(makeRequest);
+
+    // setIsLoadiing(true);
+
+    // api
+    //   .editAvatar(data)
+    //   .then((res) => {
+    //     setCurrentUser(res);
+    //     closeAllPopups();
+    //   })
+    //   .catch(console.error)
+    //   .finally(() => {
+    //     setIsLoadiing(false);
+    //   });
   }
 
   function handleAddPlaceSubmit(data) {
-    setIsLoadiing(true);
+    function makeRequest() {
 
-    api
-      .createCard(data)
-      .then((newCard) => {
+      return api.createCard(data).then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
+        
       })
-      .catch(console.error)
-      .finally(() => {
-        setIsLoadiing(false);
-      });
+    }
+
+    handleSubmit(makeRequest);
+
+    // setIsLoadiing(true);
+
+    // api
+    //   .createCard(data)
+    //   .then((newCard) => {
+    //     setCards([newCard, ...cards]);
+    //     closeAllPopups();
+    //   })
+    //   .catch(console.error)
+    //   .finally(() => {
+    //     setIsLoadiing(false);
+    //   });
   }
 
   function handleConfirmationDelete(card) {
