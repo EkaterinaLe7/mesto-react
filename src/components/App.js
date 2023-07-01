@@ -27,9 +27,7 @@ function App() {
         setCards(cardsArray);
         setCurrentUser(userData);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.error);
   }, []);
 
   function handleCardLike({ likes, id }) {
@@ -42,9 +40,7 @@ function App() {
       .then((newCard) => {
         setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.error);
   }
 
   function handleCardDelete({ id }) {
@@ -56,9 +52,7 @@ function App() {
         setCards((cards) => cards.filter((c) => c._id !== id));
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => {
         setIsLoadiing(false);
       });
@@ -73,9 +67,7 @@ function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => {
         setIsLoadiing(false);
       });
@@ -90,9 +82,7 @@ function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => {
         setIsLoadiing(false);
       });
@@ -107,9 +97,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => {
         setIsLoadiing(false);
       });
