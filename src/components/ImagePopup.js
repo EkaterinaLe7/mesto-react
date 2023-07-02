@@ -3,9 +3,9 @@ import { AppContext } from "../contexts/AppContext";
 import { usePopupClose } from "../hooks/usePopupClose";
 
 function ImagePopup({ selectedCard }) {
-  const app = useContext(AppContext);
+  const{ closeAllPopups } = useContext(AppContext);
 
-  usePopupClose(selectedCard?.link, app.closeAllPopups);
+  usePopupClose(selectedCard?.link, closeAllPopups);
 
   return (
     <div
@@ -24,7 +24,7 @@ function ImagePopup({ selectedCard }) {
             {selectedCard && selectedCard.name}
           </figcaption>
         </figure>
-        <button className="popup__button-close" onClick={app.closeAllPopups} />
+        <button className="popup__button-close" onClick={closeAllPopups} />
       </div>
     </div>
   );

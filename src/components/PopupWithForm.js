@@ -11,9 +11,9 @@ function PopupWithForm({
   isOpen,
   onSubmit,
 }) {
-  const app = useContext(AppContext);
+  const { isLoading, closeAllPopups } = useContext(AppContext);
 
-  usePopupClose(isOpen, app.closeAllPopups);
+  usePopupClose(isOpen, closeAllPopups);
 
   return (
     <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
@@ -27,13 +27,13 @@ function PopupWithForm({
         >
           {children}
           <button className="popup__button" type="submit">
-            {`${app.isLoading ? "Сохранение..." : buttonText}`}
+            {`${isLoading ? "Сохранение..." : buttonText}`}
           </button>
         </form>
         <button
           className="popup__button-close"
           type="button"
-          onClick={app.closeAllPopups}
+          onClick={closeAllPopups}
         />
       </div>
     </div>

@@ -1,34 +1,49 @@
 import React, { useState, useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useForm } from "../hooks/useForm";
 
 function EditProfilePopup({ isOpen, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const { values, handleChange, setValues } = useForm({});
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser, isOpen]);
+    setValues({
+      ...values,
+      username: currentUser.name,
+      useroccupation: currentUser.about,
+    });
+  }, [currentUser, isOpen, setValues]);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  // const [name, setName] = useState("");
+  // const [description, setDescription] = useState("");
 
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
-  }
+  // useEffect(() => {
+  //   setName(currentUser.name);
+  //   setDescription(currentUser.about);
+  // }, [currentUser, isOpen]);
+
+  // function handleChangeName(e) {
+  //   setName(e.target.value);
+  // }
+
+  // function handleChangeDescription(e) {
+  //   setDescription(e.target.value);
+  // }
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
 
     // Передаём значения управляемых компонентов во внешний обработчик
+    // onUpdateUser({
+    //   name,
+    //   about: description,
+    // });
+
     onUpdateUser({
-      name,
-      about: description,
+      name: values.username,
+      about: values.useroccupation,
     });
   }
 
@@ -47,12 +62,14 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
           type="text"
           id="name-input"
           name="username"
-          value={name || ""}
+          // value={name || ""}
+          value={values.username || ""}
           placeholder="Имя"
           required=""
           minLength={2}
           maxLength={40}
-          onChange={handleChangeName}
+          // onChange={handleChangeName}
+          onChange={handleChange}
         />
         <span className="popup__error name-input-error" />
       </label>
@@ -62,12 +79,14 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
           type="text"
           id="occupation-input"
           name="useroccupation"
-          value={description || ""}
+          // value={description || ""}
+          value={values.useroccupation || ""}
           placeholder="О себе"
           required=""
           minLength={2}
           maxLength={200}
-          onChange={handleChangeDescription}
+          // onChange={handleChangeDescription}
+          onChange={handleChange}
         />
         <span className="popup__error occupation-input-error" />
       </label>
