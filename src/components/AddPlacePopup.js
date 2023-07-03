@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
-import { useForm } from "../hooks/useForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const { values, handleChange, setValues } = useForm({});
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
 
   useEffect(() => {
-    setValues({
-      ...values,
-      photoname: "",
-      imagelink: "",
-    });
-    // eslint-disable-next-line
+    setName("");
+    setLink("");
   }, [isOpen]);
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleChangeLink(e) {
+    setLink(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+
     onAddPlace({
-      name: values.photoname,
-      link: values.imagelink,
+      name,
+      link,
     });
   }
 
@@ -37,13 +42,13 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           className="popup__input popup__input_content_title"
           type="text"
           id="title-input"
-          value={values.photoname || ""}
+          value={name || ""}
           name="photoname"
           placeholder="Название"
           required=""
           minLength={2}
           maxLength={30}
-          onChange={handleChange}
+          onChange={handleChangeName}
         />
         <span className="popup__error title-input-error" />
       </label>
@@ -52,11 +57,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           className="popup__input popup__input_content_image"
           type="url"
           id="link-input"
-          value={values.imagelink || ""}
+          value={link || ""}
           name="imagelink"
           placeholder="Ссылка на картинку"
           required=""
-          onChange={handleChange}
+          onChange={handleChangeLink}
         />
         <span className="popup__error link-input-error" />
       </label>
