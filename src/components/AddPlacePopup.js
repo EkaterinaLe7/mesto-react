@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useForm } from "../hooks/useForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
+  const { values, handleChange, setValues } = useForm({
+    imagename: "",
+    imagelink: "",
+  });
 
   useEffect(() => {
-    setName("");
-    setLink("");
-  }, [isOpen]);
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeLink(e) {
-    setLink(e.target.value);
-  }
+    setValues({
+      imagename: "",
+      imagelink: "",
+    });
+  }, [isOpen, setValues]);
 
   function handleSubmit(e) {
     e.preventDefault();
-
     onAddPlace({
-      name,
-      link,
+      name: values.imagename,
+      link: values.imagelink,
     });
   }
 
@@ -42,13 +38,13 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           className="popup__input popup__input_content_title"
           type="text"
           id="title-input"
-          value={name || ""}
-          name="photoname"
+          value={values.imagename || ""}
+          name="imagename"
           placeholder="Название"
           required=""
           minLength={2}
           maxLength={30}
-          onChange={handleChangeName}
+          onChange={handleChange}
         />
         <span className="popup__error title-input-error" />
       </label>
@@ -57,11 +53,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           className="popup__input popup__input_content_image"
           type="url"
           id="link-input"
-          value={link || ""}
+          value={values.imagelink || ""}
           name="imagelink"
           placeholder="Ссылка на картинку"
           required=""
-          onChange={handleChangeLink}
+          onChange={handleChange}
         />
         <span className="popup__error link-input-error" />
       </label>

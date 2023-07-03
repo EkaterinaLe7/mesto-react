@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useForm } from "../hooks/useForm";
 
 function EditProfilePopup({ isOpen, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const { values, handleChange, setValues } = useForm({
+    name: "",
+    about: "",
+  });
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser, isOpen]);
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
-  }
+    setValues({
+      username: currentUser.name,
+      userabout: currentUser.about,
+    });
+  }, [currentUser, isOpen, setValues]);
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
@@ -27,8 +24,8 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
-      name,
-      about: description,
+      name: values.username,
+      about: values.userabout,
     });
   }
 
@@ -47,12 +44,12 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
           type="text"
           id="name-input"
           name="username"
-          value={name || ""}
+          value={values.username || ""}
           placeholder="Имя"
           required=""
           minLength={2}
           maxLength={40}
-          onChange={handleChangeName}
+          onChange={handleChange}
         />
         <span className="popup__error name-input-error" />
       </label>
@@ -61,13 +58,13 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
           className="popup__input popup__input_content_occupation"
           type="text"
           id="occupation-input"
-          name="useroccupation"
-          value={description || ""}
+          name="userabout"
+          value={values.userabout || ""}
           placeholder="О себе"
           required=""
           minLength={2}
           maxLength={200}
-          onChange={handleChangeDescription}
+          onChange={handleChange}
         />
         <span className="popup__error occupation-input-error" />
       </label>
