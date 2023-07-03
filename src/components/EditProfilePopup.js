@@ -7,8 +7,8 @@ function EditProfilePopup({ isOpen, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, setValues } = useForm({
-    name: "",
-    about: "",
+    username: "",
+    userabout: "",
   });
 
   useEffect(() => {
